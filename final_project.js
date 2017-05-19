@@ -1,8 +1,8 @@
 var namespace = "http://www.w3.org/2000/svg"
 var player = makeImage("http://www.elmers.com/Content/images/products/category-headers/glues-and-adhesives/img-home-and-office-logo-lg-on.png", 10, 90, 10, 10)
-var winscreen = makeText("CONGRATULATIONS", 0, -50, 50, "cursive")
+
 // Write your code here!
-var end = makeRect()
+var end = makeRect(180, 70, 20, 10, "white")
 var wall = makeRect(0, 70, 10, 30, "red")
 var wall2 = makeRect(0, 70, 40, 10, "red")
 var wall3 = makeRect(20, 90, 10, 10, "red")
@@ -32,15 +32,18 @@ var wall26 = makeRect(170, 40, 10, 50, "red")
 var wall27 = makeRect(150, 70, 10, 30, "red")
 var wall28 = makeRect(170, 80, 30, 10, "red")
 var wall29 = makeRect(0, 70, 10, 30, "red")
+var winscreen = makeText("CONGRATULATIONS", 0, -20, 20, "cursive", "white")
  addEventListener("keydown", playGame)
-function playGame(){
-  if(event.key == "a"){
+function playGame(event){
+var X = getX(player)
+var Y = getY(player)
+  if(event.key == "a" && X > 0){
   move(player, -2, 0)
-}else if(event.key == "d"){
+}else if(event.key == "d" && X < 190){
   move(player, 2, 0)
-}else if(event.key == "s"){
+}else if(event.key == "s" && Y < 90){
   move(player, 0, 2)
-}else if(event.key == "w"){
+}else if(event.key == "w" && Y > 0){
   move(player, 0, -2)
 }
 if(collides(player, wall)){
@@ -108,16 +111,21 @@ if(collides(player, wall)){
 function restart(){
   location.reload(true)
 }
+var death = false
 function gameOver(){
+if(death == false){
 alert("Too Fast, Be Careful")
+death = true
+}
 }
 function winner(){
   move(winscreen, 0, 5)
   var winY = getY(winscreen)
-  if(winXY < 25){
+  if(winY < 75){
     requestAnimationFrame(winner)
   }
 }
+
 // DO NOT EDIT CODE BELOW THIS LINE!
 
 function getX(shape) {
